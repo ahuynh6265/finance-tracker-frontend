@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'; 
-import {getAccounts, createAccount, deleteAccount, getTransactions} from "../api/api"; 
+import {getAccounts, createAccount, deleteAccount} from "../api/api"; 
 
 export default function Accounts() {
   const [accounts, setAccounts] = useState([]);

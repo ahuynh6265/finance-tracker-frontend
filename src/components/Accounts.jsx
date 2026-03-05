@@ -3,14 +3,12 @@ import {getAccounts, createAccount, deleteAccount, getTransactions} from "../api
 
 export default function Accounts() {
   const [accounts, setAccounts] = useState([]);
-  const [transactions, setTransactions] = useState([]);
   const [form, setForm] = useState({
     bank_name: '', account_type: '', balance: ''
   });
 
   useEffect(() => {
     getAccounts().then(res => setAccounts(res.data));
-    getTransactions().then(res => setTransactions(res.data));
   }, []);
 
   const handleSubmit = async () => {

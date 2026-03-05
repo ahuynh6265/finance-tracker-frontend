@@ -27,7 +27,7 @@ export default function Categories() {
       <h1 className="text-2xl font-bold mb-4">Categories</h1>
 
       <div className="bg-green-100 border border-green-300 rounded-lg p-6">
-      <input placeholder="Name" onChange={e => setForm({... form, name: e.target.value})}/>
+      <input placeholder="Name" onChange={e => setForm({...form, name: e.target.value})}/>
       </div>
 
       <div className = "flex justify-center">

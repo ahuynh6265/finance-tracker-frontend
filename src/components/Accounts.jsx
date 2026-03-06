@@ -5,7 +5,7 @@ export default function Accounts() {
   const [accounts, setAccounts] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [form, setForm] = useState({
-    bank_name: '', account_type: '', balance: ''
+    bank_name: '', account_type: 'checking', balance: ''
   });
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function Accounts() {
   }, []);
 
   const handleSubmit = async () => {
-    await createAccount(form); 
+    await createAccount({...form, balance: parseFloat(form.balance)});
     getAccounts().then(res => setAccounts(res.data));
   };
 

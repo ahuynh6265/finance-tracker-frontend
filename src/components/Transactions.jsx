@@ -25,6 +25,16 @@ export default function Transactions() {
     setTransactions(transactions.filter(t => t.id !== id));
   };
 
+  const getAccountName = (id) => {
+    const account = accounts.find(a => a.id === id);
+    return account ? account.bank_name : 'Unknown';
+  };
+  
+  const getCategoryName = (id) => {
+    const category = categories.find(c => c.id === id);
+    return category ? category.name : 'Unknown';
+  };
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">Transactions</h1>
@@ -72,7 +82,7 @@ export default function Transactions() {
     <h2 className="text-green-600 font-bold mb-2">Income</h2>
     {transactions.filter(t => t.transaction_type === 'income').map(t => (
       <div className="border border-green-300 rounded-lg p-3 mb-2" key={t.id}>
-        <p>{t.date} — {t.description} — ${t.amount}</p>
+        <p>{t.date} — {t.description} — ${t.amount} — {getAccountName(t.account_id)} — {getCategoryName(t.category_id)}</p>
         <button className="bg-white-50 border border-black-500 rounded-lg p-1 text" onClick={() => handleDelete(t.id)}>Delete</button>
       </div>
     ))}
@@ -81,7 +91,7 @@ export default function Transactions() {
     <h2 className="text-red-600 font-bold mb-2">Expenses</h2>
     {transactions.filter(t => t.transaction_type === 'expense').map(t => (
       <div className="border border-red-300 rounded-lg p-3 mb-2" key={t.id}>
-        <p>{t.date} — {t.description} — ${t.amount}</p>
+        <p>{t.date} — {t.description} — ${t.amount} — {getAccountName(t.account_id)} — {getCategoryName(t.category_id)}</p>
         <button className="bg-white-50 border border-black-500 rounded-lg p-1 text" onClick={() => handleDelete(t.id)}>Delete</button>
       </div>
     ))}

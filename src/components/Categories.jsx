@@ -1,15 +1,17 @@
 import {useEffect, useState} from 'react'; 
-import {getCategories, createCategory, deleteCategory} from "../api/api"; 
+import {getCategories, createCategory, deleteCategory, getTransactions} from "../api/api"; 
 
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [form, setForm] = useState({
     name: ''
   })
 
   useEffect(() => {
     getCategories().then(res => setCategories(res.data));
+    getTransactions().then(res => setTransactions(res.data));
   }, []);
 
   const handleSubmit = async () => {
@@ -34,14 +36,20 @@ export default function Categories() {
       <button className="bg-white-50 border border-black-500 rounded-lg p-1 text mt-3 mb-3" onClick={handleSubmit}>Add Category</button>
       </div>
 
-      {
-        categories.map(c => (
-          <div className="border border-red-300 rounded-lg p-3 mb-2 flex justify-between items-center" key={c.id}>
+      {categories.map(c => {const categoryTransactions = transactions.filter(t => t.category_id === c.id);
+      return (
+      <div className="border border-red-300 rounded-lg p-3 mb-2" key={c.id}>
+        <div className="flex justify-between items-center">
           <span className="font-medium">{c.name}</span>
           <button onClick={() => handleDelete(c.id)} className="text-red-500">Delete</button>
-        </div>
+          </div>
+          {categoryTransactions.length > 0 && (<div className="mt-2 text-sm text-gray-600">{categoryTransactions.map(t => (<p key={t.id}>{t.date} — {t.description} — ${t.amount} — {t.transaction_type}</p>
         ))}
-        </div> 
-
+        </div>
+      )}
+      </div>
+      );
+      })}
+      </div> 
   )
 }
